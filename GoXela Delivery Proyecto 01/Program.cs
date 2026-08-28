@@ -1,5 +1,6 @@
 ﻿class Program
 {
+    static List<Cliente> clientes = new List<Cliente>();
     static void Main()
     {
         int opcion;
@@ -41,7 +42,7 @@
             {
 
                 case 1:
-                    MenuClientes();
+                    RegistrarCliente();
                     break;
                 case 2:
                     MenuRepartidores();
@@ -65,7 +66,7 @@
                     CancelarEntrega();
                     break;
                 case 9:
-                    RemoprogramarEntrega();
+                    ReprogramarEntrega();
                     break;
                 case 10:
                     Reportes();
@@ -312,7 +313,7 @@
         Console.WriteLine("====================");
         Console.ReadKey();
     }
-    static void RemoprogramarEntrega()
+    static void ReprogramarEntrega()
     {
         Console.Clear();
         Console.WriteLine("====================");
@@ -369,4 +370,44 @@
 
         } while (opcion != 21);
     }
+    static void RegistrarCliente()
+    {
+        Console.Clear();
+
+        Console.Write("Ingrese código: ");
+        string codigo = Console.ReadLine();
+
+        Console.Write("Ingrese nombre: ");
+        string nombre = Console.ReadLine();
+
+        Console.Write("Ingrese edad: ");
+        int edad = int.Parse(Console.ReadLine());
+
+        Console.Write("Ingrese numero de telefono: ");
+        string numeroTelefono = Console.ReadLine();
+
+        Console.Write("Ingrese correo: ");
+        string correo = Console.ReadLine();
+
+        Console.Write("Ingrese dirección: ");
+        string direccion = Console.ReadLine();
+
+        int solicitudesRealizadas = 0;
+
+        Cliente cliente = new Cliente(
+            codigo,
+            nombre,
+            edad,
+            numeroTelefono,
+            correo,
+            direccion,
+            solicitudesRealizadas
+        );
+
+        clientes.Add(cliente);
+
+        Console.WriteLine("Cliente registrado correctamente.");
+        Console.ReadKey();
+    }
 }
+
