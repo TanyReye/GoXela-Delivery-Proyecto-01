@@ -76,19 +76,39 @@ class Persona
 }
 class Cliente : Persona
 {
-    private string correoElectronico;
+    private string correo;
 
-    public string CorreoElectronico
+    public string Correo
     {
-        get { return correoElectronico; }
-        set { correoElectronico = value; }
+        get { return correo; }
+        set
+        {
+            if (value != "")
+            {
+                correo = value;
+            }
+            else
+            {
+                Console.WriteLine("El correo no puede estar vacío");
+            }
+        }
     }
     private string direccion;
 
     public string Direccion
     {
         get { return direccion; }
-        set { direccion = value; }
+        set
+        {
+            if (value != "")
+            {
+                direccion = value;
+            }
+            else
+            {
+                Console.WriteLine("La dirección no puede estar vacia");
+            }
+        }
     }
     private int solicitudesRealizadas;
 
@@ -97,12 +117,20 @@ class Cliente : Persona
         get { return solicitudesRealizadas; }
         set { solicitudesRealizadas = value; }
     }
-    public Cliente(string codigo, string nombreCompleto, int edad, string numeroTelefono, string correoElectronico, string direccion, int solicitudesRealizadas)
+    public Cliente(string codigo, string nombreCompleto, int edad, string numeroTelefono, string correo, string direccion, int solicitudesRealizadas)
         : base(codigo, nombreCompleto, edad, numeroTelefono)
     {
-        CorreoElectronico = correoElectronico;
+        Correo = correo;
         Direccion = direccion;
         SolicitudesRealizadas = solicitudesRealizadas;
+    }
+    public override void MostrarInformacion()
+    {
+        Console.WriteLine("========INFORMACIÓN CLIENTE========");
+        base.MostrarInformacion();
+        Console.WriteLine("Correo: " + Correo);
+        Console.WriteLine("Dirección: " + Direccion);
+        Console.WriteLine("Cantidad de solicitudes realizadas: " + SolicitudesRealizadas);
     }
 }
 class Repartidor : Persona
