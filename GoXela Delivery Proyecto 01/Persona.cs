@@ -1,18 +1,40 @@
-﻿class Persona
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+class Persona
 {
     private string codigo;
 
     public string Codigo
     {
         get { return codigo; }
-        set { codigo = value; }
+        set
+        {
+            if (value != "")
+            {
+                codigo = value;
+            }
+            else
+            {
+                Console.WriteLine("El código no puede estar vacio");
+            }
+        }
     }
     private string nombreCompleto;
 
     public string NombreCompleto
     {
         get { return nombreCompleto; }
-        set { nombreCompleto = value; }
+        set
+        {
+            if (value != "")
+            {
+                nombreCompleto = value;
+            }
+            else
+            {
+                Console.WriteLine("El nombre no puede estar vacio");
+            }
+        }
     }
     private int edad;
 
@@ -26,11 +48,29 @@
     public string NumeroTelefono
     {
         get { return numeroTelefono; }
-        set { numeroTelefono = value; }
+        set
+        {
+            if (value != "")
+            {
+                numeroTelefono = value;
+            }
+            else
+            {
+                Console.WriteLine("El número de telefono no puede estar vacio");
+            }
+        }
     }
     public Persona(string codigo, string nombreCompleto, int edad, string numeroTelefono)
     {
         Codigo = codigo; NombreCompleto = nombreCompleto; Edad = edad; NumeroTelefono = numeroTelefono;
+    }
+    public virtual void MostrarInformacion()
+    {
+
+        Console.WriteLine("Codigo: " + Codigo);
+        Console.WriteLine("Nombre: " + NombreCompleto);
+        Console.WriteLine("Número de telefono: " + NumeroTelefono);
+        Console.WriteLine("Edad: " + Edad);
     }
 
 }
@@ -111,4 +151,5 @@ class Repartidor : Persona
         EntregasRealizadas = entregasRealizadas;
         Calificacion = calificacion;
     }
+
 }
