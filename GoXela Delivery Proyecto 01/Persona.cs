@@ -1,9 +1,6 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
-
-class Persona
+﻿class Persona
 {
     private string codigo;
-
     public string Codigo
     {
         get { return codigo; }
@@ -19,16 +16,15 @@ class Persona
             }
         }
     }
-    private string nombreCompleto;
-
-    public string NombreCompleto
+    private string nombre;
+    public string Nombre
     {
-        get { return nombreCompleto; }
+        get { return nombre; }
         set
         {
             if (value != "")
             {
-                nombreCompleto = value;
+                nombre = value;
             }
             else
             {
@@ -36,15 +32,7 @@ class Persona
             }
         }
     }
-    private int edad;
-
-    public int Edad
-    {
-        get { return edad; }
-        set { edad = value; }
-    }
     private string numeroTelefono;
-
     public string NumeroTelefono
     {
         get { return numeroTelefono; }
@@ -60,15 +48,36 @@ class Persona
             }
         }
     }
-    public Persona(string codigo, string nombreCompleto, int edad, string numeroTelefono)
+    private int edad;
+    public int Edad
     {
-        Codigo = codigo; NombreCompleto = nombreCompleto; Edad = edad; NumeroTelefono = numeroTelefono;
+        get { return edad; }
+        set
+        {
+            if (value >= 18 && value <= 90)
+            {
+                edad = value;
+            }
+            else
+            {
+                Console.WriteLine("La edad debe ser mayor a 0");
+            }
+        }
+    }
+
+
+    public Persona(string codigo, string nombre, string numeroTelefono, int edad)
+    {
+        Codigo = codigo;
+        Nombre = nombre;
+        NumeroTelefono = numeroTelefono;
+        Edad = edad;
     }
     public virtual void MostrarInformacion()
     {
 
         Console.WriteLine("Codigo: " + Codigo);
-        Console.WriteLine("Nombre: " + NombreCompleto);
+        Console.WriteLine("Nombre: " + Nombre);
         Console.WriteLine("Número de telefono: " + NumeroTelefono);
         Console.WriteLine("Edad: " + Edad);
     }

@@ -76,35 +76,3 @@
         TipoPaquete = tipoPaquete;
     }
 }
-
-class Documento : Paquete
-{
-    public Documento(string codigo, string descripcion, double peso, double valorDeclarado, string direccionOrigen, string direccionDestino, string estado, string tipoPaquete)
-        : base(codigo, descripcion, peso, valorDeclarado, direccionOrigen, direccionDestino, estado, tipoPaquete)
-    {
-    }
-}
-
-class PaqueteEstandar : Paquete
-{
-    public PaqueteEstandar(string codigo, string descripcion, double peso, double valorDeclarado, string direccionOrigen, string direccionDestino, string estado, string tipoPaquete)
-        : base(codigo, descripcion, peso, valorDeclarado, direccionOrigen, direccionDestino, estado, tipoPaquete)
-    {
-    }
-}
-
-class PaqueteFragil : Paquete
-{
-    public PaqueteFragil(string codigo, string descripcion, double peso, double valorDeclarado, string direccionOrigen, string direccionDestino, string estado, string tipoPaquete)
-        : base(codigo, descripcion, peso, valorDeclarado, direccionOrigen, direccionDestino, estado, tipoPaquete)
-    {
-    }
-}
-
-class ProductoRefrigerado : Paquete
-{
-    public ProductoRefrigerado(string codigo, string descripcion, double peso, double valorDeclarado, string direccionOrigen, string direccionDestino, string estado, string tipoPaquete)
-        : base(codigo, descripcion, peso, valorDeclarado, direccionOrigen, direccionDestino, estado, tipoPaquete)
-    {
-    }
-}
