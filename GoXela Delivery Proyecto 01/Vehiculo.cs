@@ -5,7 +5,35 @@
     public string Codigo
     {
         get { return codigo; }
-        set { codigo = value; }
+        set
+        {
+            if (value != "")
+            {
+                codigo = value;
+            }
+            else
+            {
+                Console.WriteLine("El código no puede estar vacío");
+            }
+        }
+    }
+
+    private string tipo;
+
+    public string Tipo
+    {
+        get { return tipo; }
+        set
+        {
+            if (value != "")
+            {
+                tipo = value;
+            }
+            else
+            {
+                Console.WriteLine("El tipo de vehículo no puede estar vacío");
+            }
+        }
     }
 
     private string marca;
@@ -13,7 +41,17 @@
     public string Marca
     {
         get { return marca; }
-        set { marca = value; }
+        set
+        {
+            if (value != "")
+            {
+                marca = value;
+            }
+            else
+            {
+                Console.WriteLine("La marca no puede estar vacía");
+            }
+        }
     }
 
     private string modelo;
@@ -21,15 +59,35 @@
     public string Modelo
     {
         get { return modelo; }
-        set { modelo = value; }
+        set
+        {
+            if (value != "")
+            {
+                modelo = value;
+            }
+            else
+            {
+                Console.WriteLine("El modelo no puede estar vacío");
+            }
+        }
     }
 
-    private double capacidadMaximaCarga;
+    private double capacidad;
 
-    public double CapacidadMaximaCarga
+    public double Capacidad
     {
-        get { return capacidadMaximaCarga; }
-        set { capacidadMaximaCarga = value; }
+        get { return capacidad; }
+        set
+        {
+            if (value > 0)
+            {
+                capacidad = value;
+            }
+            else
+            {
+                Console.WriteLine("La capacidad debe ser mayor a 0");
+            }
+        }
     }
 
     private string estado;
@@ -37,33 +95,42 @@
     public string Estado
     {
         get { return estado; }
-        set { estado = value; }
+        set
+        {
+            if (value == "Disponible" || value == "No disponible")
+            {
+                estado = value;
+            }
+            else
+            {
+                Console.WriteLine("El estado debe ser Disponible o No disponible");
+            }
+        }
     }
 
-    private double costoOperativo;
-
-    public double CostoOperativo
-    {
-        get { return costoOperativo; }
-        set { costoOperativo = value; }
-    }
-
-    private string estadoDisponibilidad;
-
-    public string EstadoDisponibilidad
-    {
-        get { return estadoDisponibilidad; }
-        set { estadoDisponibilidad = value; }
-    }
-
-    public Vehiculo(string codigo, string marca, string modelo, double capacidadMaximaCarga, string estado, double costoOperativo, string estadoDisponibilidad)
+    public Vehiculo(string codigo, string tipo, string marca, string modelo, double capacidad, string estado)
     {
         Codigo = codigo;
+        Tipo = tipo;
         Marca = marca;
         Modelo = modelo;
-        CapacidadMaximaCarga = capacidadMaximaCarga;
+        Capacidad = capacidad;
         Estado = estado;
-        CostoOperativo = costoOperativo;
-        EstadoDisponibilidad = estadoDisponibilidad;
+    }
+
+    public virtual void MostrarInformacion()
+    {
+        Console.WriteLine("======= INFORMACIÓN DEL VEHÍCULO =======");
+        Console.WriteLine("Código: " + Codigo);
+        Console.WriteLine("Tipo: " + Tipo);
+        Console.WriteLine("Marca: " + Marca);
+        Console.WriteLine("Modelo: " + Modelo);
+        Console.WriteLine("Capacidad: " + Capacidad + " kg");
+        Console.WriteLine("Estado: " + Estado);
+    }
+
+    public virtual void CalcularCapacidad()
+    {
+        Console.WriteLine("La capacidad del vehículo es de " + Capacidad + " kg");
     }
 }

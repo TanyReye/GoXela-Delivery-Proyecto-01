@@ -2,6 +2,8 @@
 {
     static List<Cliente> clientes = new List<Cliente>();
     static List<Repartidor> repartidores = new List<Repartidor>();
+    static List<Vehiculo> vehiculos = new List<Vehiculo>();
+    static List<Paquete> paquetes = new List<Paquete>();
     static void Main()
     {
         int opcion;
@@ -217,6 +219,40 @@
                 }
                 break;
             } while (true);
+            switch (opcion)
+            {
+                case 1:
+                    RegistrarVehiculo();
+                    break;
+
+                case 2:
+                    ConsultarVehiculos();
+                    break;
+
+                case 3:
+                    BuscarVehiculo();
+                    break;
+
+                case 4:
+                    VerificarDisponibilidadVehiculo();
+                    break;
+
+                case 5:
+                    VerificarCapacidad();
+                    break;
+
+                case 6:
+                    VerificarCompatibilidad();
+                    break;
+
+                case 7:
+                    AsignarVehiculo();
+                    break;
+
+                case 8:
+                    ActualizarEstadoVehiculo();
+                    break;
+            }
         } while (opcion != 9);
     }
 
@@ -253,6 +289,35 @@
                 }
                 break;
             } while (true);
+            switch (opcion)
+            {
+                case 1:
+                    RegistrarPaquete();
+                    break;
+                case 2:
+                    ConsultarPaquetes();
+                    break;
+
+                case 3:
+                    BuscarPaquete();
+                    break;
+
+                case 4:
+                    VerTipoPaquete();
+                    break;
+
+                case 5:
+                    VerCondicionesPaquete();
+                    break;
+
+                case 6:
+                    VerificarCompatibilidadPaquete();
+                    break;
+
+                case 7:
+                    ActualizarEstadoPaquete();
+                    break;
+            }
         } while (opcion != 8);
     }
 
@@ -426,7 +491,7 @@
         }
         while (codigo == "")
         {
-            Console.WriteLine("El campo no puede quedar vacio o el codigo ya existe");
+            Console.WriteLine("El campo no puede quedar vacio");
             Console.Write("Ingrese código: ");
             codigo = Console.ReadLine();
         }
@@ -468,7 +533,7 @@
 
         Console.Write("Ingrese correo: ");
         string correo = Console.ReadLine();
-        while (correo == "" || !correo.Contains("@"))
+        while (correo == "" || !correo.Contains("@") || !correo.Contains(".com"))
         {
             Console.WriteLine("Invalido");
             Console.Write("Ingrese correo: ");
@@ -892,6 +957,1012 @@
         }
 
         Console.WriteLine("No existe repartidor con ese código");
+
+        Console.ReadKey();
+    }
+    static void RegistrarVehiculo()
+    {
+        int tipo;
+
+        do
+        {
+            Console.Clear();
+
+            Console.WriteLine("=============================");
+            Console.WriteLine("     REGISTRAR VEHÍCULO      ");
+            Console.WriteLine("=============================");
+            Console.WriteLine("1. Bicicleta");
+            Console.WriteLine("2. Motocicleta");
+            Console.WriteLine("3. Automóvil");
+            Console.WriteLine("4. Regresar");
+
+            do
+            {
+                Console.Write("Seleccione el tipo de vehículo: ");
+
+                if (!int.TryParse(Console.ReadLine(), out tipo))
+                {
+                    Console.WriteLine("Debe ingresar un número");
+                    continue;
+                }
+
+                if (tipo < 1 || tipo > 4)
+                {
+                    Console.WriteLine("Opción inválida");
+                    continue;
+                }
+
+                break;
+
+            } while (true);
+
+            switch (tipo)
+            {
+                case 1:
+                    RegistrarBicicleta();
+                    break;
+
+                case 2:
+                    RegistrarMotocicleta();
+                    break;
+
+                case 3:
+                    RegistrarAutomovil();
+                    break;
+            }
+
+        } while (tipo != 4);
+    }
+
+    static void RegistrarBicicleta()
+    {
+        Console.Clear();
+
+        Console.WriteLine("=============================");
+        Console.WriteLine("      REGISTRAR BICICLETA    ");
+        Console.WriteLine("=============================");
+
+        Console.Write("Ingrese código: ");
+        string codigo = Console.ReadLine();
+
+        while (codigo == "")
+        {
+            Console.WriteLine("El código no puede estar vacío");
+            Console.Write("Ingrese código: ");
+            codigo = Console.ReadLine();
+        }
+
+        foreach (Vehiculo vehiculo in vehiculos)
+        {
+            if (vehiculo.Codigo == codigo)
+            {
+                Console.WriteLine("El código ya existe");
+                Console.ReadKey();
+                return;
+            }
+        }
+
+        Console.Write("Ingrese marca: ");
+        string marca = Console.ReadLine();
+
+        while (marca == "")
+        {
+            Console.WriteLine("La marca no puede estar vacía");
+            Console.Write("Ingrese marca: ");
+            marca = Console.ReadLine();
+        }
+
+        Console.Write("Ingrese modelo: ");
+        string modelo = Console.ReadLine();
+
+        while (modelo == "")
+        {
+            Console.WriteLine("El modelo no puede estar vacío");
+            Console.Write("Ingrese modelo: ");
+            modelo = Console.ReadLine();
+        }
+
+        double capacidad;
+
+        do
+        {
+            Console.Write("Ingrese capacidad máxima de carga(kg): ");
+
+            if (!double.TryParse(Console.ReadLine(), out capacidad))
+            {
+                Console.WriteLine("Debe ingresar un número");
+                continue;
+            }
+
+            if (capacidad <= 0)
+            {
+                Console.WriteLine("La capacidad debe ser mayor a 0");
+                continue;
+            }
+
+            break;
+
+        } while (true);
+
+        Console.Write("Ingrese estado: ");
+        string estado = Console.ReadLine();
+
+        while (estado == "")
+        {
+            Console.WriteLine("El estado no puede estar vacío");
+            Console.Write("Ingrese estado: ");
+            estado = Console.ReadLine();
+        }
+
+        Console.Write("Ingrese material de la bicicleta: ");
+        string material = Console.ReadLine();
+
+        while (material == "")
+        {
+            Console.WriteLine("El material no puede estar vacío");
+            Console.Write("Ingrese material: ");
+            material = Console.ReadLine();
+        }
+
+        Bicicleta bicicleta = new Bicicleta(codigo, "Bicicleta", marca, modelo, capacidad, estado, material);
+
+        vehiculos.Add(bicicleta);
+
+        Console.WriteLine("Bicicleta registrada correctamente");
+
+        Console.ReadKey();
+    }
+    static void RegistrarMotocicleta()
+    {
+        Console.Clear();
+
+        Console.WriteLine("=============================");
+        Console.WriteLine("    REGISTRAR MOTOCICLETA    ");
+        Console.WriteLine("=============================");
+
+        Console.Write("Ingrese código: ");
+        string codigo = Console.ReadLine();
+
+        while (codigo == "")
+        {
+            Console.WriteLine("El código no puede estar vacío");
+            Console.Write("Ingrese código: ");
+            codigo = Console.ReadLine();
+        }
+
+        foreach (Vehiculo vehiculo in vehiculos)
+        {
+            if (vehiculo.Codigo == codigo)
+            {
+                Console.WriteLine("El código ya existe");
+                Console.ReadKey();
+                return;
+            }
+        }
+
+        Console.Write("Ingrese marca: ");
+        string marca = Console.ReadLine();
+
+        while (marca == "")
+        {
+            Console.WriteLine("La marca no puede estar vacía");
+            Console.Write("Ingrese marca: ");
+            marca = Console.ReadLine();
+        }
+
+        Console.Write("Ingrese modelo: ");
+        string modelo = Console.ReadLine();
+
+        while (modelo == "")
+        {
+            Console.WriteLine("El modelo no puede estar vacío");
+            Console.Write("Ingrese modelo: ");
+            modelo = Console.ReadLine();
+        }
+
+        double capacidad;
+
+        do
+        {
+            Console.Write("Ingrese capacidad máxima de carga: ");
+
+            if (!double.TryParse(Console.ReadLine(), out capacidad))
+            {
+                Console.WriteLine("Debe ingresar un número");
+                continue;
+            }
+
+            if (capacidad <= 0)
+            {
+                Console.WriteLine("La capacidad debe ser mayor a 0");
+                continue;
+            }
+
+            break;
+
+        } while (true);
+        string estado = "disponible";
+        Console.Write("Ingrese placa: ");
+        string placa = Console.ReadLine();
+
+        while (placa == "")
+        {
+            Console.WriteLine("La placa no puede estar vacía");
+            Console.Write("Ingrese placa: ");
+            placa = Console.ReadLine();
+        }
+
+        Motocicleta motocicleta = new Motocicleta(codigo, "Motocicleta", marca, modelo, capacidad, estado, placa);
+
+        vehiculos.Add(motocicleta);
+
+        Console.WriteLine("Motocicleta registrada correctamente");
+
+        Console.ReadKey();
+    }
+    static void RegistrarAutomovil()
+    {
+        Console.Clear();
+
+        Console.WriteLine("=============================");
+        Console.WriteLine("      REGISTRAR AUTOMÓVIL    ");
+        Console.WriteLine("=============================");
+
+        Console.Write("Ingrese código: ");
+        string codigo = Console.ReadLine();
+
+        while (codigo == "")
+        {
+            Console.WriteLine("El código no puede estar vacío");
+            Console.Write("Ingrese código: ");
+            codigo = Console.ReadLine();
+        }
+
+        foreach (Vehiculo vehiculo in vehiculos)
+        {
+            if (vehiculo.Codigo == codigo)
+            {
+                Console.WriteLine("El código ya existe");
+                Console.ReadKey();
+                return;
+            }
+        }
+
+        Console.Write("Ingrese marca: ");
+        string marca = Console.ReadLine();
+
+        while (marca == "")
+        {
+            Console.WriteLine("La marca no puede estar vacía");
+            Console.Write("Ingrese marca: ");
+            marca = Console.ReadLine();
+        }
+
+        Console.Write("Ingrese modelo: ");
+        string modelo = Console.ReadLine();
+
+        while (modelo == "")
+        {
+            Console.WriteLine("El modelo no puede estar vacío");
+            Console.Write("Ingrese modelo: ");
+            modelo = Console.ReadLine();
+        }
+
+        double capacidad;
+
+        do
+        {
+            Console.Write("Ingrese capacidad máxima de carga: ");
+
+            if (!double.TryParse(Console.ReadLine(), out capacidad))
+            {
+                Console.WriteLine("Debe ingresar un número");
+                continue;
+            }
+
+            if (capacidad <= 0)
+            {
+                Console.WriteLine("La capacidad debe ser mayor a 0");
+                continue;
+            }
+
+            break;
+
+        } while (true);
+
+        Console.Write("Ingrese estado: ");
+        string estado = Console.ReadLine();
+
+        while (estado == "")
+        {
+            Console.WriteLine("El estado no puede estar vacío");
+            Console.Write("Ingrese estado: ");
+            estado = Console.ReadLine();
+        }
+
+        Console.Write("Ingrese placa: ");
+        string placa = Console.ReadLine();
+
+        while (placa == "")
+        {
+            Console.WriteLine("La placa no puede estar vacía");
+            Console.Write("Ingrese placa: ");
+            placa = Console.ReadLine();
+        }
+
+        Console.Write("Ingrese transmisión (Manual/Automático): ");
+        string transmision = Console.ReadLine();
+
+        while (transmision != "Manual" && transmision != "Automático")
+        {
+            Console.WriteLine("Debe ingresar Manual o Automático");
+            Console.Write("Ingrese transmisión: ");
+            transmision = Console.ReadLine();
+        }
+
+        Automovil automovil = new Automovil(codigo, "Automóvil", marca, modelo, capacidad, estado, placa, transmision);
+
+        vehiculos.Add(automovil);
+
+        Console.WriteLine("Automóvil registrado correctamente");
+
+        Console.ReadKey();
+    }
+    static void ConsultarVehiculos()
+    {
+        Console.Clear();
+
+        if (vehiculos.Count == 0)
+        {
+            Console.WriteLine("No hay vehículos registrados");
+        }
+        else
+        {
+            foreach (Vehiculo vehiculo in vehiculos)
+            {
+                vehiculo.MostrarInformacion();
+                Console.WriteLine();
+            }
+        }
+
+        Console.ReadKey();
+    }
+    static void BuscarVehiculo()
+    {
+        Console.Clear();
+
+        Console.WriteLine("=============================");
+        Console.WriteLine("       BUSCAR VEHÍCULO       ");
+        Console.WriteLine("=============================");
+
+        Console.Write("Ingrese código: ");
+        string codigo = Console.ReadLine();
+
+        while (codigo == "")
+        {
+            Console.WriteLine("El código no puede estar vacío");
+            Console.Write("Ingrese código: ");
+            codigo = Console.ReadLine();
+        }
+
+        bool encontrado = false;
+
+        foreach (Vehiculo vehiculo in vehiculos)
+        {
+            if (vehiculo.Codigo == codigo)
+            {
+                vehiculo.MostrarInformacion();
+                encontrado = true;
+                break;
+            }
+        }
+
+        if (encontrado == false)
+        {
+            Console.WriteLine("No existe un vehículo con ese código");
+        }
+
+        Console.ReadKey();
+    }
+    static void VerificarDisponibilidadVehiculo()
+    {
+        Console.Clear();
+
+        Console.WriteLine("=============================");
+        Console.WriteLine("   VERIFICAR DISPONIBILIDAD  ");
+        Console.WriteLine("=============================");
+
+        Console.Write("Ingrese código del vehículo: ");
+        string codigo = Console.ReadLine();
+
+        foreach (Vehiculo vehiculo in vehiculos)
+        {
+            if (vehiculo.Codigo == codigo)
+            {
+                Console.WriteLine("Vehículo: " + vehiculo.Marca + " " + vehiculo.Modelo);
+                Console.WriteLine("Estado: " + vehiculo.Estado);
+
+                if (vehiculo.Estado == "Disponible")
+                {
+                    Console.WriteLine("El vehículo está disponible.");
+                }
+                else
+                {
+                    Console.WriteLine("El vehículo no está disponible.");
+                }
+
+                Console.ReadKey();
+                return;
+            }
+        }
+
+        Console.WriteLine("No existe un vehículo con ese código.");
+        Console.ReadKey();
+    }
+    static void VerificarCapacidad()
+    {
+        Console.Clear();
+
+        Console.WriteLine("=============================");
+        Console.WriteLine("      VERIFICAR CAPACIDAD    ");
+        Console.WriteLine("=============================");
+
+        Console.Write("Ingrese código del vehículo: ");
+        string codigo = Console.ReadLine();
+
+        foreach (Vehiculo vehiculo in vehiculos)
+        {
+            if (vehiculo.Codigo == codigo)
+            {
+                double peso;
+
+                do
+                {
+                    Console.Write("Ingrese el peso del paquete (kg): ");
+
+                    if (!double.TryParse(Console.ReadLine(), out peso))
+                    {
+                        Console.WriteLine("Debe ingresar un número.");
+                        continue;
+                    }
+
+                    if (peso <= 0)
+                    {
+                        Console.WriteLine("El peso debe ser mayor a 0.");
+                        continue;
+                    }
+
+                    break;
+
+                } while (true);
+
+                if (peso <= vehiculo.Capacidad)
+                {
+                    Console.WriteLine("El vehículo puede transportar el paquete.");
+                }
+                else
+                {
+                    Console.WriteLine("El vehículo NO puede transportar el paquete.");
+                }
+
+                Console.ReadKey();
+                return;
+            }
+        }
+
+        Console.WriteLine("No existe un vehículo con ese código.");
+        Console.ReadKey();
+    }
+    static void VerificarCompatibilidad()
+    {
+        Console.Clear();
+
+        Console.WriteLine("=============================");
+        Console.WriteLine("    VERIFICAR COMPATIBILIDAD ");
+        Console.WriteLine("=============================");
+
+        Console.Write("Ingrese código del vehículo: ");
+        string codigo = Console.ReadLine();
+
+        foreach (Vehiculo vehiculo in vehiculos)
+        {
+            if (vehiculo.Codigo == codigo)
+            {
+                Console.Write("Ingrese tipo de paquete: ");
+                string tipoPaquete = Console.ReadLine();
+
+                if (vehiculo.Tipo == "Bicicleta" && tipoPaquete == "Producto refrigerado")
+                {
+                    Console.WriteLine("El vehículo no es compatible con este paquete.");
+                }
+                else
+                {
+                    Console.WriteLine("El vehículo es compatible con el paquete.");
+                }
+
+                Console.ReadKey();
+                return;
+            }
+        }
+
+        Console.WriteLine("No existe un vehículo con ese código.");
+        Console.ReadKey();
+    }
+    static void AsignarVehiculo()
+    {
+        Console.Clear();
+
+        Console.WriteLine("=============================");
+        Console.WriteLine("       ASIGNAR VEHÍCULO      ");
+        Console.WriteLine("=============================");
+
+        Console.ReadKey();
+    }
+    static void ActualizarEstadoVehiculo()
+    {
+        Console.Clear();
+
+        Console.WriteLine("=============================");
+        Console.WriteLine("      ACTUALIZAR ESTADO      ");
+        Console.WriteLine("=============================");
+
+        Console.Write("Ingrese código del vehículo: ");
+        string codigo = Console.ReadLine();
+
+        foreach (Vehiculo vehiculo in vehiculos)
+        {
+            if (vehiculo.Codigo == codigo)
+            {
+                int opcionEstado;
+
+                do
+                {
+                    Console.Clear();
+
+                    Console.WriteLine("=============================");
+                    Console.WriteLine("      ACTUALIZAR ESTADO      ");
+                    Console.WriteLine("=============================");
+                    Console.WriteLine("1. Disponible");
+                    Console.WriteLine("2. No disponible");
+
+                    Console.Write("Seleccione el nuevo estado: ");
+
+                    if (!int.TryParse(Console.ReadLine(), out opcionEstado))
+                    {
+                        Console.WriteLine("Debe ingresar un número.");
+                        Console.ReadKey();
+                        continue;
+                    }
+
+                    if (opcionEstado < 1 || opcionEstado > 2)
+                    {
+                        Console.WriteLine("Opción inválida.");
+                        Console.ReadKey();
+                        continue;
+                    }
+
+                    break;
+
+                } while (true);
+
+                switch (opcionEstado)
+                {
+                    case 1:
+                        vehiculo.Estado = "Disponible";
+                        break;
+
+                    case 2:
+                        vehiculo.Estado = "No disponible";
+                        break;
+                }
+
+                Console.WriteLine("Estado actualizado correctamente.");
+                Console.ReadKey();
+                return;
+            }
+        }
+
+        Console.WriteLine("No existe un vehículo con ese código.");
+        Console.ReadKey();
+    }
+    static void RegistrarPaquete()
+    {
+        int tipo;
+
+        do
+        {
+            Console.Clear();
+
+            Console.WriteLine("=============================");
+            Console.WriteLine("      REGISTRAR PAQUETE      ");
+            Console.WriteLine("=============================");
+            Console.WriteLine("1. Documento");
+            Console.WriteLine("2. Paquete estándar");
+            Console.WriteLine("3. Paquete frágil");
+            Console.WriteLine("4. Producto refrigerado");
+            Console.WriteLine("5. Regresar");
+
+            do
+            {
+                Console.Write("Seleccione el tipo de paquete: ");
+
+                if (!int.TryParse(Console.ReadLine(), out tipo))
+                {
+                    Console.WriteLine("Debe ingresar un número");
+                    continue;
+                }
+
+                if (tipo < 1 || tipo > 5)
+                {
+                    Console.WriteLine("Opción inválida");
+                    continue;
+                }
+
+                break;
+
+            } while (true);
+
+            switch (tipo)
+            {
+                case 1:
+                    RegistrarDatosPaquete(1);
+                    break;
+
+                case 2:
+                    RegistrarDatosPaquete(2);
+                    break;
+
+                case 3:
+                    RegistrarDatosPaquete(3);
+                    break;
+
+                case 4:
+                    RegistrarDatosPaquete(4);
+                    break;
+            }
+
+        } while (tipo != 5);
+    }
+    static void RegistrarDatosPaquete(int tipo)
+    {
+        Console.Clear();
+
+        Console.WriteLine("=============================");
+        Console.WriteLine("      DATOS DEL PAQUETE      ");
+        Console.WriteLine("=============================");
+
+        Console.Write("Ingrese código: ");
+        string codigo = Console.ReadLine();
+
+        while (codigo == "")
+        {
+            Console.WriteLine("El código no puede estar vacío");
+            Console.Write("Ingrese código: ");
+            codigo = Console.ReadLine();
+        }
+
+        foreach (Paquete paquetes in paquetes)
+        {
+            if (paquetes.Codigo == codigo)
+            {
+                Console.WriteLine("Ya existe un paquete con ese código");
+                Console.ReadKey();
+                return;
+            }
+        }
+
+        Console.Write("Ingrese descripción: ");
+        string descripcion = Console.ReadLine();
+
+        while (descripcion == "")
+        {
+            Console.WriteLine("La descripción no puede estar vacía");
+            Console.Write("Ingrese descripción: ");
+            descripcion = Console.ReadLine();
+        }
+
+        double peso;
+
+        do
+        {
+            Console.Write("Ingrese peso(kg): ");
+
+            if (!double.TryParse(Console.ReadLine(), out peso))
+            {
+                Console.WriteLine("Debe ingresar un número");
+                continue;
+            }
+
+            if (peso <= 0)
+            {
+                Console.WriteLine("El peso debe ser mayor a 0");
+                continue;
+            }
+
+            break;
+
+        } while (true);
+
+        Console.Write("Ingrese valor declarado: ");
+        string valorDeclarado = Console.ReadLine();
+
+        while (valorDeclarado == "")
+        {
+            Console.WriteLine("El valor declarado no puede estar vacío");
+            Console.Write("Ingrese valor declarado: ");
+            valorDeclarado = Console.ReadLine();
+        }
+
+        Console.Write("Ingrese dirección de origen: ");
+        string direccionOrigen = Console.ReadLine();
+
+        while (direccionOrigen == "")
+        {
+            Console.WriteLine("La dirección de origen no puede estar vacía");
+            Console.Write("Ingrese dirección de origen: ");
+            direccionOrigen = Console.ReadLine();
+        }
+
+        Console.Write("Ingrese dirección de destino: ");
+        string direccionDestino = Console.ReadLine();
+
+        while (direccionDestino == "")
+        {
+            Console.WriteLine("La dirección de destino no puede estar vacía");
+            Console.Write("Ingrese dirección de destino: ");
+            direccionDestino = Console.ReadLine();
+        }
+
+        string estado = "Registrado";
+
+        Paquete paquete;
+
+        switch (tipo)
+        {
+            case 1:
+
+                paquete = new Documento(codigo, descripcion, peso, valorDeclarado, direccionOrigen, direccionDestino, estado);
+
+                break;
+
+            case 2:
+
+                paquete = new PaqueteEstandar(codigo, descripcion, peso, valorDeclarado, direccionOrigen, direccionDestino, estado);
+
+                break;
+
+            case 3:
+
+                paquete = new PaqueteFragil(codigo, descripcion, peso, valorDeclarado, direccionOrigen, direccionDestino, estado);
+
+                break;
+
+            default:
+
+                paquete = new ProductoRefrigerado(codigo, descripcion, peso, valorDeclarado, direccionOrigen, direccionDestino, estado);
+
+                break;
+        }
+
+        paquetes.Add(paquete);
+
+        Console.WriteLine();
+        Console.WriteLine("Paquete registrado correctamente.");
+
+        Console.ReadKey();
+    }
+    static void ConsultarPaquetes()
+    {
+        Console.Clear();
+
+        Console.WriteLine("=============================");
+        Console.WriteLine("       LISTA DE PAQUETES     ");
+        Console.WriteLine("=============================");
+
+        if (paquetes.Count == 0)
+        {
+            Console.WriteLine("No hay paquetes registrados.");
+        }
+        else
+        {
+            foreach (Paquete paquete in paquetes)
+            {
+                paquete.MostrarInformacion();
+                Console.WriteLine();
+            }
+        }
+
+        Console.ReadKey();
+    }
+    static void BuscarPaquete()
+    {
+        Console.Clear();
+
+        Console.WriteLine("=============================");
+        Console.WriteLine("        BUSCAR PAQUETE       ");
+        Console.WriteLine("=============================");
+
+        Console.Write("Ingrese código: ");
+        string codigo = Console.ReadLine();
+
+        bool encontrado = false;
+
+        foreach (Paquete paquete in paquetes)
+        {
+            if (paquete.Codigo == codigo)
+            {
+                paquete.MostrarInformacion();
+                encontrado = true;
+                break;
+            }
+        }
+
+        if (encontrado == false)
+        {
+            Console.WriteLine("No existe un paquete con ese código.");
+        }
+
+        Console.ReadKey();
+    }
+    static void VerTipoPaquete()
+    {
+        Console.Clear();
+
+        Console.WriteLine("=============================");
+        Console.WriteLine("       TIPO DE PAQUETE       ");
+        Console.WriteLine("=============================");
+
+        Console.Write("Ingrese código del paquete: ");
+        string codigo = Console.ReadLine();
+
+        foreach (Paquete paquete in paquetes)
+        {
+            if (paquete.Codigo == codigo)
+            {
+                Console.WriteLine("Tipo de paquete: " + paquete.TipoPaquete);
+                Console.ReadKey();
+                return;
+            }
+        }
+
+        Console.WriteLine("No existe un paquete con ese código.");
+
+        Console.ReadKey();
+    }
+    static void VerCondicionesPaquete()
+    {
+        Console.Clear();
+
+        Console.WriteLine("=============================");
+        Console.WriteLine("   CONDICIONES DE TRANSPORTE ");
+        Console.WriteLine("=============================");
+
+        Console.Write("Ingrese código del paquete: ");
+        string codigo = Console.ReadLine();
+
+        foreach (Paquete paquete in paquetes)
+        {
+            if (paquete.Codigo == codigo)
+            {
+                paquete.PuedeSerTransportado();
+
+                Console.ReadKey();
+                return;
+            }
+        }
+
+        Console.WriteLine("No existe un paquete con ese código.");
+
+        Console.ReadKey();
+    }
+    static void VerificarCompatibilidadPaquete()
+    {
+        Console.Clear();
+
+        Console.WriteLine("=============================");
+        Console.WriteLine("    VERIFICAR COMPATIBILIDAD ");
+        Console.WriteLine("=============================");
+
+        Console.Write("Ingrese código del paquete: ");
+        string codigoPaquete = Console.ReadLine();
+
+        foreach (Paquete paquete in paquetes)
+        {
+            if (paquete.Codigo == codigoPaquete)
+            {
+                Console.WriteLine("Paquete encontrado.");
+                Console.WriteLine("Tipo: " + paquete.TipoPaquete);
+                Console.WriteLine("Peso: " + paquete.Peso + " kg");
+
+                Console.WriteLine();
+                Console.WriteLine("La compatibilidad se verificará");
+                Console.WriteLine("al asignar un vehículo a la entrega.");
+
+                Console.ReadKey();
+                return;
+            }
+        }
+
+        Console.WriteLine("No existe un paquete con ese código.");
+
+        Console.ReadKey();
+    }
+    static void ActualizarEstadoPaquete()
+    {
+        Console.Clear();
+
+        Console.WriteLine("=============================");
+        Console.WriteLine("      ACTUALIZAR ESTADO      ");
+        Console.WriteLine("=============================");
+
+        Console.Write("Ingrese código del paquete: ");
+        string codigo = Console.ReadLine();
+
+        foreach (Paquete paquete in paquetes)
+        {
+            if (paquete.Codigo == codigo)
+            {
+                int opcionEstado;
+
+                do
+                {
+                    Console.Clear();
+
+                    Console.WriteLine("=============================");
+                    Console.WriteLine("         NUEVO ESTADO        ");
+                    Console.WriteLine("=============================");
+                    Console.WriteLine("1. Registrado");
+                    Console.WriteLine("2. En tránsito");
+                    Console.WriteLine("3. Entregado");
+                    Console.WriteLine("4. Cancelado");
+
+                    Console.Write("Seleccione el nuevo estado: ");
+
+                    if (!int.TryParse(Console.ReadLine(), out opcionEstado))
+                    {
+                        Console.WriteLine("Debe ingresar un número.");
+                        Console.ReadKey();
+                        continue;
+                    }
+
+                    if (opcionEstado < 1 || opcionEstado > 4)
+                    {
+                        Console.WriteLine("Opción inválida.");
+                        Console.ReadKey();
+                        continue;
+                    }
+
+                    break;
+
+                } while (true);
+
+                switch (opcionEstado)
+                {
+                    case 1:
+                        paquete.Estado = "Registrado";
+                        break;
+
+                    case 2:
+                        paquete.Estado = "En tránsito";
+                        break;
+
+                    case 3:
+                        paquete.Estado = "Entregado";
+                        break;
+
+                    case 4:
+                        paquete.Estado = "Cancelado";
+                        break;
+                }
+
+                Console.WriteLine("Estado actualizado correctamente.");
+
+                Console.ReadKey();
+                return;
+            }
+        }
+
+        Console.WriteLine("No existe un paquete con ese código.");
 
         Console.ReadKey();
     }
